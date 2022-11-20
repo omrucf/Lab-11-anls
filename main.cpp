@@ -20,11 +20,23 @@ string getTillChar(string &, char);
 
 int main()
 {
+    cout << "test 1:\n";
 
-    string test = "Jackie Tom loves to cook";
-    int lenTest = 10;
+    string test_1 = "blah blah blah blah reallylongword";
+    int lenTest_1 = 16;
 
-    wrapText(test, lenTest);
+    wrapText(test_1, lenTest_1);
+
+    cout << endl << endl;
+
+    cout << "test 2:\n";
+
+    string test_2 = "Jackie Tom loves to cook";
+    int lenTest_2 = 10;
+
+    wrapText(test_2, lenTest_2);
+
+    cout << endl;
 
     return 0;
 }
@@ -40,7 +52,7 @@ MTRX getCostMatrix(vector<string> listOfWords, int lineLength)
     {
         tempCost = lineLength;
 
-        for (int j = i; j < size - 1; j++)
+        for (int j = i; j < size ; j++)
         {
             if (i == j)
                 tempCost -= listOfWords[j - 1].size();
@@ -54,7 +66,6 @@ MTRX getCostMatrix(vector<string> listOfWords, int lineLength)
 
         }
     }
-
     return totalcost;
 }
 
@@ -76,9 +87,9 @@ vector<int> getSolArray(MTRX linecost)
 
     int temp;
 
-    for (int j = 1; j < size ; j++)
-    {
-        for (int i = 1; i <= j; i++)
+    for (int j = 1; j < 6; j++)
+    {   
+        for (int i = 1; i <= j ; i++)
         {   
             if(linecost[i][j] != INF)
             {
@@ -88,10 +99,9 @@ vector<int> getSolArray(MTRX linecost)
                 {
                     totalCost[j] = temp;
                     sol[j] = i;
-                    cout << totalCost[j] << "\t";
-                    cout << sol[j] << endl;
                 }
             }
+            
         }
     }
 
@@ -105,12 +115,15 @@ int dispSol(vector<int> sol, vector<string> words, int size)
     if (sol[size] == 1)
         k = 1;
     else
-        k = dispSol(sol, words, sol[size - 1]) + 1;
+        k = dispSol(sol, words, sol[size] - 1) + 1;
 
-    cout << endl << "Line number " << k << ": ";
+    int tempdef = size - sol[size];
 
-    for(int i = sol[size]; i < size; i++)
-        cout << " " << words[i];
+    cout << "Line number " << k << ": ";
+
+    for(int i = 0; i <= tempdef; i++)
+        cout << words[sol[size] - 1 + i] << " ";
+    cout << endl;
 
     return k;
 }
